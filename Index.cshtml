@@ -1,0 +1,302 @@
+﻿@{
+    ViewData["Title"] = "PieChart Page";
+}
+
+
+
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box">
+                    <div class="btn-group float-right">
+                        <ol class="breadcrumb hide-phone p-0 m-0">
+                            <li class="breadcrumb-item"><a href="#">Annex</a></li>
+                            <li class="breadcrumb-item active">Landing</li>
+                        </ol>
+                    </div>
+                    <h4 class="page-title">PieCharts</h4>
+                </div>
+            </div>
+        </div>
+        <!-- end page title end breadcrumb -->
+
+
+        <div class="row">
+            <div class="col-md-12 col-xl-12">
+                <div class="card m-b-30">
+                    <div class="card-body new-user">
+                        <h5 class="header-title mb-4 mt-0">eCharts</h5>
+                        <div style="text-align: center;">
+                            <!-- Centering with text-align -->
+                            <div id="piechart" style="width: 600px; height: 400px; display: inline-block;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+          <div class="row">
+            <div class="col-md-12 col-xl-12">
+                <div class="card m-b-30">
+                    <div class="card-body new-user">
+                        <h5 class="header-title mb-4 mt-0">Google Charts</h5>
+                        <div style="text-align: center;">
+                            <!-- Centering with text-align -->
+                        <div id="piechart_3d" style="width: 600px; height: 400px;  display: inline-block;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+  
+
+         <div class="row">
+            <div class="col-md-12 col-xl-12">
+                <div class="card m-b-30">
+                    <div class="card-body new-user">
+                    <h5 class="header-title mb-4 mt-0">MorrisJs</h5>
+                        <div style="text-align: center;">
+                            <!-- Centering with text-align -->
+                        <div id="pie-chart" style="width: 600px; height: 400px;  display: inline-block;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-12 col-xl-12">
+                <div class="card m-b-30">
+                    <div class="card-body new-user">
+                        <h5 class="header-title mb-4 mt-0">ChartJs</h5>
+                        <div style="text-align: center;">
+                            <!-- Centering with text-align -->
+                        <canvas id="myPieChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    
+    </div><!-- container -->
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/assets/dist/echarts.js"></script>
+<script src="~/assets/dist/echarts.min.js"></script>
+
+<script src="~/assets/js/jquery.min.js"></script>
+<script src="~/assets/js/popper.min.js"></script>
+<script src="~/assets/js/bootstrap.min.js"></script>
+<script src="~/assets/js/modernizr.min.js"></script>
+<script src="~/assets/js/detect.js"></script>
+<script src="~/assets/js/fastclick.js"></script>
+<script src="~/assets/js/jquery.slimscroll.js"></script>
+<script src="~/assets/js/jquery.blockUI.js"></script>
+<script src="~/assets/js/waves.js"></script>
+<script src="~/assets/js/jquery.nicescroll.js"></script>
+<script src="~/assets/js/jquery.scrollTo.min.js"></script>
+
+<!--Morris Chart-->
+<script src="~/assets/plugins/morris/morris.min.js"></script>
+<script src="~/assets/plugins/raphael/raphael-min.js"></script>
+
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- App js -->
+<script src="~/assets/js/app.js"></script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        eCharts();
+        MorrisJS();
+        
+    });
+
+    function MorrisJS() {
+
+        Morris.Donut({
+            element: 'pie-chart',
+            data: [
+                { label: "Friends", value: 30 },
+                { label: "Allies", value: 15 },
+                { label: "Enemies", value: 45 },
+                { label: "Neutral", value: 10 }
+            ]
+        });
+    }
+
+
+    function eCharts() {
+        // Get the DOM element where the chart will be rendered
+        var dom = document.getElementById("piechart");
+
+        // Initialize the chart with the correct configuration options
+        var myChart = echarts.init(dom, null, {
+            renderer: 'canvas',  // Renderer option (optional)
+            useDirtyRect: false  // Option to control dirty rects (optional)
+        });
+
+        // Define the chart option
+        var option = {
+            tooltip: {
+                trigger: 'item'  // Tooltip configuration
+            },
+            legend: {
+                top: '5%',  // Positioning of legend
+                left: 'center'
+            },
+            series: [
+                {
+                    name: 'Access From',  // The name for the pie chart
+                    type: 'pie',  // Pie chart type
+                    radius: ['40%', '70%'],  // Pie chart radius range
+                    avoidLabelOverlap: false,
+                    itemStyle: {
+                        borderRadius: 10,  // Rounded border for the pie sections
+                        borderColor: '#fff',  // Border color
+                        borderWidth: 2  // Border width
+                    },
+                    label: {
+                        show: false,  // Disable labels in the center of the pie chart
+                        position: 'center'
+                    },
+                    emphasis: {
+                        label: {
+                            show: true,  // Show labels on emphasis (hover effect)
+                            fontSize: 40,
+                            fontWeight: 'bold'
+                        }
+                    },
+                    labelLine: {
+                        show: false  // Hide label lines
+                    },
+                    data: [
+                        { value: 1048, name: 'Search Engine' },
+                        { value: 735, name: 'Direct' },
+                        { value: 580, name: 'Email' },
+                        { value: 484, name: 'Union Ads' },
+                        { value: 300, name: 'Video Ads' }
+                    ]
+                }
+            ]
+        };
+
+        // Set the chart options if they are defined
+        if (option && typeof option === 'object') {
+            myChart.setOption(option);
+        }
+
+        // Add a resize event listener to make the chart responsive
+        window.addEventListener('resize', myChart.resize);
+    }
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctx = document.getElementById('myPieChart').getContext('2d');
+
+  // Data and Config
+  const data = {
+    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'], // Categories
+    datasets: [{
+      data: [12, 19, 3, 5, 2, 3], // Data values
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.6)', // Colors for each slice
+        'rgba(54, 162, 235, 0.6)',
+        'rgba(255, 206, 86, 0.6)',
+        'rgba(75, 192, 192, 0.6)',
+        'rgba(153, 102, 255, 0.6)',
+        'rgba(255, 159, 64, 0.6)'
+      ],
+      borderColor: [
+        'rgba(255, 99, 132, 1)', // Border color for each slice
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(255, 159, 64, 1)'
+      ],
+      borderWidth: 1 // Border width
+    }]
+  };
+
+  const options = {
+    responsive: true, // Automatically adjusts to screen size
+    plugins: {
+      legend: {
+        position: 'top', // Positions: 'top', 'left', 'right', 'bottom'
+      },
+      tooltip: {
+        enabled: true // Show tooltips on hover
+      }
+    }
+  };
+
+  // Create Chart
+  new Chart(ctx, {
+    type: 'pie', // Specify chart type
+    data: data,
+    options: options
+  });
+</script>
+
+
+<script>
+  const ctx = document.getElementById('myChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar', // Jenis grafik
+    data: {
+      labels: ['January', 'February', 'March', 'April'],
+      datasets: [{
+        label: 'Sales',
+        data: [10, 20, 30, 40],
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+
+<script type="text/javascript">
+    google.charts.load("current", { packages: ["corechart"] });
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Task', 'Hours per Day'],
+            ['Work', 11],
+            ['Eat', 2],
+            ['Commute', 2],
+            ['Watch TV', 2],
+            ['Sleep', 7]
+        ]);
+
+        var options = {
+            title: 'My Daily Activities',
+            is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+        chart.draw(data, options);
+    }
+</script>
+
